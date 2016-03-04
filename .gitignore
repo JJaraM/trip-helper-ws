@@ -1,0 +1,8 @@
+# Maven folder
+
+target/
+
+# IntelliJ 
+
+.idea/
+trip-helper.iml
