@@ -4,6 +4,8 @@
  */
 package com.jjm.triphelper.entity.spec;
 
+import java.util.Set;
+
 /**
  * The {@link User} represents the specification of user
  * @author Jonathan Jara Morales
@@ -16,4 +18,13 @@ public interface User extends SingularId {
 
     String getPassword();
     void setPassword(String password);
+
+    Set<Trip> getTrips();
+    void setTrips(Set<Trip> trips);
+
+    Trip addTrip(Trip trip);
+    Trip removeTrip(Trip trip);
+
+    Set<Trip> getShareTrips();
+    void setShareTrips(Set<Trip> shareTrips);
 }

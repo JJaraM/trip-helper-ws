@@ -1,7 +1,6 @@
 package com.jjm.triphelper.parser;
 
 import com.jjm.foursquare.entity.*;
-import com.jjm.chameleon.query.ChameleonQueryManager;
 import com.jjm.foursquare.entity.Photo;
 import com.jjm.triphelper.entity.spec.*;
 import com.jjm.triphelper.factory.*;
@@ -20,7 +19,6 @@ public class PlaceParser {
     @Resource private StateFactory stateFactory;
     @Resource private PhotoFactory photoFactory;
 
-    @Resource private ChameleonQueryManager chameleonQueryManager;
     //@Resource private CountryService countryService;
 
     public Set<Place> fetchNearPlacesByLocationNameFoursquare(Set<Venue> venues) {

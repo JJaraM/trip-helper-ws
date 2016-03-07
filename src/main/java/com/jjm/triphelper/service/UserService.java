@@ -21,4 +21,8 @@ public interface UserService {
      * @return {@link User} with the user information
      */
     User signIn(String username, String password);
+
+    User signUp(String username, String password);
+
+    User findById(String userId);
 }

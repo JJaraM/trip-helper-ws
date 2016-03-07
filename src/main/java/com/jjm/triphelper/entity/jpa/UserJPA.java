@@ -4,8 +4,13 @@
  */
 package com.jjm.triphelper.entity.jpa;
 
+import com.jjm.chameleon.annotation.ChameleonAttr;
+import com.jjm.chameleon.annotation.jpa.ChameleonStrategy;
+import com.jjm.triphelper.entity.spec.Photo;
+import com.jjm.triphelper.entity.spec.Trip;
 import com.jjm.triphelper.entity.spec.User;
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * The {@link UserJPA} represents the implementation of JPA to {@link User}
@@ -23,7 +28,15 @@ public class UserJPA implements User {
     private Integer id;
 
     @Column(name = "username", nullable = false, length = 20, unique = true) private String username;
-    @Column(name = "password", nullable = false, length = 20) private String password;
+    @Column(name = "password", nullable = false, length = 200) private String password;
+
+    @OneToMany(mappedBy = "owner", targetEntity = TripJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Trip> trips;
+
+    @ManyToMany(targetEntity = TripJPA.class) @JoinTable(name = "user_trip",  joinColumns = {
+            @JoinColumn(name = "uzer_id", referencedColumnName="id") },
+            inverseJoinColumns = { @JoinColumn(name = "trip_id", referencedColumnName="id") })
+    private Set<Trip> shareTrips;
 
     @Override
     public Integer getId() {
@@ -53,5 +66,39 @@ public class UserJPA implements User {
     @Override
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public Set<Trip> getTrips() {
+        return trips;
+    }
+
+    @Override
+    public void setTrips(Set<Trip> trips) {
+        this.trips = trips;
+    }
+
+    @Override
+    public Trip addTrip(Trip trip) {
+        getTrips().add(trip);
+        trip.setOwner(this);
+        return trip;
+    }
+
+    @Override
+    public Trip removeTrip(Trip trip) {
+        getTrips().remove(trip);
+        trip.setOwner(null);
+        return trip;
+    }
+
+    @Override
+    public Set<Trip> getShareTrips() {
+        return shareTrips;
+    }
+
+    @Override
+    public void setShareTrips(Set<Trip> shareTrips) {
+        this.shareTrips = shareTrips;
     }
 }

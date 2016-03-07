@@ -8,11 +8,8 @@ import com.jjm.triphelper.repository.UserRepository;
 
 public interface UserRepositoryJPA extends CacheRepository<UserJPA, Integer>, UserRepository {
 
-    @Override
-    default User fetchByUsernameAndPassword(String username, String password) {
-        QUserJPA DEF = QUserJPA.userJPA;
-        return findOne(DEF.username.eq(username).and(DEF.password.eq(password)));
-    }
+    User findByUsernameAndPassword(String username, String password);
+    User findByUsername(String username);
 
     @Override
     default User save(String username, String password) {
@@ -21,5 +18,10 @@ public interface UserRepositoryJPA extends CacheRepository<UserJPA, Integer>, Us
         user.setPassword(password);
         save((UserJPA)user);
         return user;
+    }
+
+    @Override
+    default User findById(Integer id) {
+        return findOne(id);
     }
 }

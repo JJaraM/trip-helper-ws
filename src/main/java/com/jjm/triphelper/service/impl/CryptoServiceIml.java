@@ -1,6 +1,6 @@
 package com.jjm.triphelper.service.impl;
 
-import com.jjm.triphelper.service.CrytoService;
+import com.jjm.triphelper.service.CryptoService;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -15,7 +15,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CryptoServiceIml implements CrytoService {
+public class CryptoServiceIml implements CryptoService {
 
     public static final String PASSWORD_HASH_ALGORITHM = "SHA-256";
 

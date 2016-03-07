@@ -4,6 +4,7 @@
  */
 package com.jjm.triphelper.controller;
 
+import com.jjm.triphelper.controller.exceptions.UserAlreadyExistException;
 import com.jjm.triphelper.controller.exceptions.UserNotFoundException;
 import com.jjm.triphelper.domain.ErrorModel;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,10 @@ public class ErrorHandlerAdvice {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorModel> handleUserNotFoundException(UserNotFoundException ex) {
         return new ResponseEntity<>(new ErrorModel(ex.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<ErrorModel> handleUserAlreadyExistException(UserAlreadyExistException ex) {
+        return new ResponseEntity<>(new ErrorModel(ex.getMessage()), HttpStatus.CONFLICT);
     }
 }
