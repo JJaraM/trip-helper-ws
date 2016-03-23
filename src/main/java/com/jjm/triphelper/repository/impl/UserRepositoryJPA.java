@@ -1,22 +1,21 @@
 package com.jjm.triphelper.repository.impl;
 
 import com.jjm.triphelper.entity.spec.User;
-import com.jjm.triphelper.entity.jpa.QUserJPA;
 import com.jjm.triphelper.entity.jpa.UserJPA;
 import com.jjm.triphelper.repository.CacheRepository;
 import com.jjm.triphelper.repository.UserRepository;
 
 public interface UserRepositoryJPA extends CacheRepository<UserJPA, Integer>, UserRepository {
 
-    User findByUsernameAndPassword(String username, String password);
-    User findByUsername(String username);
+    User findByEmailAndPassword(String email, String password);
+    User findByEmail(String username);
 
     @Override
-    default User save(String username, String password) {
-        User user = new UserJPA();
-        user.setUsername(username);
+    default User save(String email, String password) {
+        UserJPA user = new UserJPA();
+        user.setEmail(email);
         user.setPassword(password);
-        save((UserJPA)user);
+        save(user);
         return user;
     }
 

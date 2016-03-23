@@ -7,6 +7,6 @@ import com.jjm.triphelper.entity.spec.User;
 
 public interface UserRepositoryDTO {
 
-    @Query("SELECT U.id, U.username FROM User U")
+    @Query("SELECT U.id, U.email FROM User U")
     UserDTO find(@Datasource User user);
 }

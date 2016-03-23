@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping(value = "api/place", produces = { MediaType.APPLICATION_JSON_VALUE })
 public class PlaceController {

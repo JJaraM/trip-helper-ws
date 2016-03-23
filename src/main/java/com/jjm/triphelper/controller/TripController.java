@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "api/trip", produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -40,5 +41,13 @@ public class TripController {
             throw new InvalidUserException(userId);
         }
         return new ResponseEntity<>(tripDTORepository.find(tripService.create(user, location, startDate, endDate)), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Set<TripDTO>> fetchAllByUser(@RequestParam(value = "userId", required = true) final String userId) {
+        User user = userService.findById(userId);
+        if (user == null) {
+            throw new InvalidUserException(userId);
+        }
+        return ResponseEntity.ok(tripDTORepository.findAll(user.getTrips()));
     }
 }

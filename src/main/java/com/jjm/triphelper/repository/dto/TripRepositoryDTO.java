@@ -5,8 +5,13 @@ import com.jjm.chameleon.annotation.Query;
 import com.jjm.triphelper.entity.dto.TripDTO;
 import com.jjm.triphelper.entity.spec.Trip;
 
+import java.util.Set;
+
 public interface TripRepositoryDTO {
 
     @Query("SELECT T.id FROM Trip T ")
     TripDTO find(@Datasource Trip trip);
+
+    @Query("SELECT T.id, T.startDate FROM Trip T ")
+    Set<TripDTO> findAll(@Datasource Set<Trip> trips);
 }

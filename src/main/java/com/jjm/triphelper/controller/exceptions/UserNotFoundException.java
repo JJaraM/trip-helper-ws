@@ -11,14 +11,14 @@ package com.jjm.triphelper.controller.exceptions;
  */
 public class UserNotFoundException extends RuntimeException {
 
-    private final String username;
+    private final String email;
 
-    public UserNotFoundException(String username) {
-        super("The user " + username + " does not exist");
-        this.username = username;
+    public UserNotFoundException(String email) {
+        super("The user " + email + " does not exist");
+        this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 }

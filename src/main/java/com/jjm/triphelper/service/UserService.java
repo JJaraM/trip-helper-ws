@@ -13,16 +13,9 @@ import com.jjm.triphelper.entity.spec.User;
  */
 public interface UserService {
 
-    /**
-     * <p>Sign into the application
-     *
-     * @param username to search
-     * @param password to search
-     * @return {@link User} with the user information
-     */
-    User signIn(String username, String password);
+    User signIn(String email, String password);
 
-    User signUp(String username, String password);
+    User signUp(String email, String password);
 
     User findById(String userId);
 }

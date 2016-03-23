@@ -27,7 +27,7 @@ public class UserJPA implements User {
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq")
     private Integer id;
 
-    @Column(name = "username", nullable = false, length = 20, unique = true) private String username;
+    @Column(name = "email", nullable = false, length = 200, unique = true) private String email;
     @Column(name = "password", nullable = false, length = 200) private String password;
 
     @OneToMany(mappedBy = "owner", targetEntity = TripJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -49,13 +49,13 @@ public class UserJPA implements User {
     }
 
     @Override
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     @Override
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

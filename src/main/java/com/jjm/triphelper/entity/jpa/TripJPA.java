@@ -1,8 +1,5 @@
 package com.jjm.triphelper.entity.jpa;
 
-
-import com.jjm.chameleon.annotation.ChameleonAttr;
-import com.jjm.triphelper.entity.spec.State;
 import com.jjm.triphelper.entity.spec.Trip;
 import com.jjm.triphelper.entity.spec.User;
 import javax.persistence.*;

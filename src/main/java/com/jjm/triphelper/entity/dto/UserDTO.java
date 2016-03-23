@@ -9,7 +9,7 @@ import com.jjm.triphelper.entity.jpa.interceptor.UserInterceptor;
 public class UserDTO {
 
     @Serializer(value = UserInterceptor.class) private String id;
-    private String username;
+    private String email;
 
     public String getId() {
         return id;
@@ -19,11 +19,11 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void getEmail(String email) {
+        this.email = email;
     }
 }

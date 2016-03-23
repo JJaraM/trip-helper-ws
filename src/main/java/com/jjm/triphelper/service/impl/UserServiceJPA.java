@@ -15,16 +15,16 @@ public class UserServiceJPA implements UserService {
     @Resource private CryptoService cryptoService;
 
     @Override
-    public User signIn(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, cryptoService.encrypt(password, "PASSWORD"));
+    public User signIn(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, cryptoService.encrypt(password, "PASSWORD"));
     }
 
     @Override
-    public User signUp(String username, String password) {
-        if (userRepository.findByUsername(username) != null) {
-            throw new UserAlreadyExistException(username);
+    public User signUp(String email, String password) {
+        if (userRepository.findByEmail(email) != null) {
+            throw new UserAlreadyExistException(email);
         }
-        return userRepository.save(username, cryptoService.encrypt(password, "PASSWORD"));
+        return userRepository.save(email, cryptoService.encrypt(password, "PASSWORD"));
     }
 
     @Override

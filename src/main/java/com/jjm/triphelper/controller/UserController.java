@@ -30,20 +30,21 @@ public class UserController {
 
     @ApiOperation(value = "Sign In", notes = "<p>Sign In into the application</p>")
     @RequestMapping(value = "signIn", method = RequestMethod.GET )
-    public ResponseEntity<UserDTO> signIn(@RequestParam(value = "username", required = true) final String username,
+    public ResponseEntity<UserDTO> signIn(@RequestParam(value = "email", required = true) final String email,
                                           @RequestParam(value = "password", required = true) final String password) {
-        User user = userService.signIn(username, password);
+        User user = userService.signIn(email, password);
         if (user == null) {
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException(email);
         }
         return new ResponseEntity<>(userRepositoryDTO.find(user), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Sign Up", notes = "<p>Sign Up into the application</p>")
     @RequestMapping(value = "signUp", method = RequestMethod.GET)
-    public ResponseEntity<UserDTO> signUp(@RequestParam(value = "username", required = true) final String username,
+    public ResponseEntity<UserDTO> signUp(@RequestParam(value = "email", required = true) final String email,
+                                          @RequestParam(value = "name", required = true) final String name,
                                           @RequestParam(value = "password", required = true) final String password){
-        User user = userService.signUp(username, password);
+        User user = userService.signUp(email, password);
         return new ResponseEntity<>(userRepositoryDTO.find(user), HttpStatus.CREATED);
     }
 }
