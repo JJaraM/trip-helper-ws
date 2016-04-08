@@ -1,7 +1,7 @@
 package com.jjm.triphelper.entity.jpa;
 
-import com.jjm.triphelper.entity.spec.Trip;
-import com.jjm.triphelper.entity.spec.User;
+import com.jjm.triphelper.entity.spec.*;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -24,6 +24,10 @@ public class TripJPA implements Trip {
 
     @ManyToMany(mappedBy="shareTrips", targetEntity = UserJPA.class)
     private Set<User> friends;
+
+    @OneToMany(mappedBy = "trip", targetEntity = TravelJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderBy(value = "startDate DESC")
+    private Set<Travel> travels;
 
     @Column(name = "place_location", nullable = false, length = 100) private String placeLocation;
 
@@ -98,6 +102,17 @@ public class TripJPA implements Trip {
     public void setPlaceLocation(String placeLocation) {
         this.placeLocation = placeLocation;
     }
+
+    @Override
+    public Set<Travel> getTravels() {
+        return travels;
+    }
+
+    @Override
+    public void setTravels(Set<Travel> travels) {
+        this.travels = travels;
+    }
+
 
 
 }

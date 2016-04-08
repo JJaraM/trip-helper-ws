@@ -19,6 +19,16 @@ public interface PlaceRepositoryJPA extends CacheRepository<PlaceJPA, Integer>, 
                                     "c.name = :location OR " +
                                     "ct.name = :location ";
 
+    String FETCH_NEAR_BY_LOCATION_AND_CATEGORY_ID  = "SELECT p FROM PlaceJPA p " +
+                                                    "JOIN p.state s " +
+                                                    "JOIN s.city c " +
+                                                    "JOIN c.country ct "+
+                                                    "JOIN p.category ca " +
+                                                    "WHERE s.name = :location OR " +
+                                                    "c.name = :location OR " +
+                                                    "ct.name = :location AND " +
+                                                    "ca.referenceId = :referenceId";
+
     @Override
     @Query(FETCH_NEAR_BY_LOCATION)
     Set<Place> fetchNearPlacesByLocationName(@Param("location") String location);
@@ -27,4 +37,9 @@ public interface PlaceRepositoryJPA extends CacheRepository<PlaceJPA, Integer>, 
         save((PlaceJPA) place);
         return place;
     }
+
+    @Query(FETCH_NEAR_BY_LOCATION_AND_CATEGORY_ID)
+    Set<Place> fetchNearPlacesByLocationNameAndReferenceId(@Param("location") String location, @Param("referenceId") String referenceId);
+
+    Place findByReferenceId(String referenceId);
 }

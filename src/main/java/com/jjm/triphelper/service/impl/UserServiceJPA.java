@@ -20,11 +20,11 @@ public class UserServiceJPA implements UserService {
     }
 
     @Override
-    public User signUp(String email, String password) {
+    public User signUp(String email, String name, String password) {
         if (userRepository.findByEmail(email) != null) {
             throw new UserAlreadyExistException(email);
         }
-        return userRepository.save(email, cryptoService.encrypt(password, "PASSWORD"));
+        return userRepository.save(email, name, cryptoService.encrypt(password, "PASSWORD"));
     }
 
     @Override

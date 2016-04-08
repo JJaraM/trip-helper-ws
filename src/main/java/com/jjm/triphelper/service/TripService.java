@@ -6,4 +6,5 @@ import java.util.Date;
 
 public interface TripService {
     Trip create(User user, String location, Date startDate, Date endDate);
+    Trip findById(String tripId);
 }

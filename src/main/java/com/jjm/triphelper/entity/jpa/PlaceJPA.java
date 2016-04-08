@@ -34,6 +34,9 @@ public class PlaceJPA implements Place {
     @ChameleonAttr(type = ContactJPA.class, stretegy = ChameleonStrategy.SET)
     private Contact contact;
 
+    @ManyToOne(targetEntity = CategoryJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_category")
+    private Category category;
+
     @OneToMany(mappedBy = "place", targetEntity = PhotoJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ChameleonAttr(type = PhotoJPA.class, stretegy = ChameleonStrategy.ADD)
     private Set<Photo> photos;
@@ -46,6 +49,9 @@ public class PlaceJPA implements Place {
     @JoinColumn(name="id_location", nullable = true)
     @ChameleonAttr(type = LocationJPA.class)
     private Location location;
+
+    @OneToMany(mappedBy = "trip", targetEntity = TravelJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Travel> travels;
 
     @Override
     public Integer getId() {
@@ -150,6 +156,26 @@ public class PlaceJPA implements Place {
     @Override
     public void setState(State state) {
         this.state = state;
+    }
+
+    @Override
+    public Set<Travel> getTravels() {
+        return travels;
+    }
+
+    @Override
+    public void setTravels(Set<Travel> travels) {
+        this.travels = travels;
+    }
+
+    @Override
+    public Category getCategory() {
+        return category;
+    }
+
+    @Override
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

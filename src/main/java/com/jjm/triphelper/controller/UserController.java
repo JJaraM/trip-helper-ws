@@ -44,7 +44,7 @@ public class UserController {
     public ResponseEntity<UserDTO> signUp(@RequestParam(value = "email", required = true) final String email,
                                           @RequestParam(value = "name", required = true) final String name,
                                           @RequestParam(value = "password", required = true) final String password){
-        User user = userService.signUp(email, password);
+        User user = userService.signUp(email, name, password);
         return new ResponseEntity<>(userRepositoryDTO.find(user), HttpStatus.CREATED);
     }
 }

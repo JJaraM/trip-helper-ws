@@ -31,7 +31,22 @@ public class PlaceServiceStrategy implements PlaceService {
     }
 
     @Override
+    public Set<Place> fetchNearPlacesByLocationNameAndCategoryId(String locationName, String categoryId) {
+        return placeServiceJPA.fetchNearPlacesByLocationNameAndCategoryId(locationName, categoryId);
+    }
+
+    @Override
     public Place save(Place place) {
         return placeServiceJPA.save(place);
+    }
+
+    @Override
+    public Place findById(String placeId) {
+        return placeServiceJPA.findById(placeId);
+    }
+
+    @Override
+    public Place findByReferenceId(String referenceId) {
+        return placeServiceJPA.findByReferenceId(referenceId);
     }
 }

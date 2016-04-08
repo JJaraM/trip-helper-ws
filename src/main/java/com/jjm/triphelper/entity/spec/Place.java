@@ -29,4 +29,14 @@ public interface Place extends SingularId,  ReferenceId, Expiration, Serializabl
     State getState();
     void setState(State state);
 
+    Set<Travel> getTravels();
+    void setTravels(Set<Travel> travels);
+
+    Category getCategory();
+    void setCategory(Category category);
+
+
+
+
+
 }

@@ -8,8 +8,12 @@ import com.jjm.triphelper.entity.jpa.interceptor.UserInterceptor;
 @Chameleon(type = UserJPA.class)
 public class UserDTO {
 
-    @Serializer(value = UserInterceptor.class) private String id;
+    @Serializer(value = UserInterceptor.class)
+    private String id;
+
     private String email;
+
+    private String name;
 
     public String getId() {
         return id;
@@ -23,7 +27,15 @@ public class UserDTO {
         return email;
     }
 
-    public void getEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

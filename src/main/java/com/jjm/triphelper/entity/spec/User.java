@@ -19,6 +19,9 @@ public interface User extends SingularId {
     String getPassword();
     void setPassword(String password);
 
+    String getName();
+    void setName(String name);
+
     Set<Trip> getTrips();
     void setTrips(Set<Trip> trips);
 

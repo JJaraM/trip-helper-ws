@@ -5,6 +5,6 @@ import com.jjm.triphelper.entity.spec.User;
 public interface UserRepository {
     User findByEmailAndPassword(String email, String password);
     User findByEmail(String email);
-    User save(String email, String password);
+    User save(String email, String name, String password);
     User findById(Integer id);
 }

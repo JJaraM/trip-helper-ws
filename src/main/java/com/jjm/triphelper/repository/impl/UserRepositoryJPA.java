@@ -11,10 +11,11 @@ public interface UserRepositoryJPA extends CacheRepository<UserJPA, Integer>, Us
     User findByEmail(String username);
 
     @Override
-    default User save(String email, String password) {
+    default User save(String email, String name, String password) {
         UserJPA user = new UserJPA();
         user.setEmail(email);
         user.setPassword(password);
+        user.setName(name);
         save(user);
         return user;
     }
