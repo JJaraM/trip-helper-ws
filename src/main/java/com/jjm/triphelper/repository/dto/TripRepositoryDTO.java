@@ -14,6 +14,6 @@ public interface TripRepositoryDTO {
     @Query("SELECT T.id FROM Trip T ")
     TripDTO find(@Datasource Trip trip);
 
-    @Query("SELECT T.id, T.startDate, T.placeLocation FROM Trip T ")
+    @Query("SELECT T.id, T.startDate, I.placeLocation, I.picture FROM Trip T JOIN tripInfo I ")
     Set<TripDTO> findAll(@Datasource Set<Trip> trips);
 }

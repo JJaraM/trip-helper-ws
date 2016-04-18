@@ -1,6 +1,5 @@
 package com.jjm.triphelper.entity.spec;
 
-
 import java.util.Date;
 
 public interface Travel extends SingularId {

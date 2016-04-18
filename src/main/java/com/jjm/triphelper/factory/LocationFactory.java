@@ -11,6 +11,8 @@ public class LocationFactory {
         LocationJPA location = new LocationJPA();
         location.setLatitude(venue.getLocation().getLatitude());
         location.setLongitude(venue.getLocation().getLongitude());
+        location.setAddress(venue.getLocation().getAddress());
+        location.setCrossStreet(venue.getLocation().getCrossStreet());
         return location;
     }
 }

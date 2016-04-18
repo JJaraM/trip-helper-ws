@@ -1,17 +1,13 @@
 package com.jjm.triphelper.entity.jpa;
 
-import com.jjm.chameleon.annotation.Chameleon;
-import com.jjm.foursquare.entity.Location;
 import com.jjm.triphelper.entity.spec.City;
 import com.jjm.triphelper.entity.spec.Place;
 import com.jjm.triphelper.entity.spec.State;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "State")
-@Chameleon(type = Location.class)
 public class StateJPA implements State {
 
     @Id
@@ -81,6 +77,4 @@ public class StateJPA implements State {
         place.setState(null);
         return place;
     }
-
-
 }

@@ -14,7 +14,6 @@ public class PhotoDTO  {
     public String getPrefix() {
         return prefix;
     }
-
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
@@ -22,7 +21,6 @@ public class PhotoDTO  {
     public String getSuffix() {
         return suffix;
     }
-
     public void setSuffix(String suffix) {
         this.suffix = suffix;
     }
@@ -30,7 +28,6 @@ public class PhotoDTO  {
     public Double getWidth() {
         return width;
     }
-
     public void setWidth(Double width) {
         this.width = width;
     }
@@ -38,7 +35,6 @@ public class PhotoDTO  {
     public Double getHeight() {
         return height;
     }
-
     public void setHeight(Double height) {
         this.height = height;
     }

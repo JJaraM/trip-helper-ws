@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.security.InvalidParameterException;
+
 /**
  * The {@code ErrorHandlerAdvice} represents class that manage the all exceptions in the controllers
  * @author Jonathan Jara Morales
@@ -32,6 +34,11 @@ public class ErrorHandlerAdvice {
 
     @ExceptionHandler(UserAlreadyExistException.class)
     public ResponseEntity<ErrorModel> handleUserAlreadyExistException(UserAlreadyExistException ex) {
+        return new ResponseEntity<>(new ErrorModel(ex.getMessage()), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(InvalidParameterException.class)
+    public ResponseEntity<ErrorModel> handleInvalidParameterException(InvalidParameterException ex) {
         return new ResponseEntity<>(new ErrorModel(ex.getMessage()), HttpStatus.CONFLICT);
     }
 }

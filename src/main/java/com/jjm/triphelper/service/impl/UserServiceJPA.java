@@ -1,6 +1,5 @@
 package com.jjm.triphelper.service.impl;
 
-import com.jjm.triphelper.controller.exceptions.UserAlreadyExistException;
 import com.jjm.triphelper.entity.spec.User;
 import com.jjm.triphelper.repository.UserRepository;
 import com.jjm.triphelper.service.CryptoService;
@@ -16,19 +15,21 @@ public class UserServiceJPA implements UserService {
 
     @Override
     public User signIn(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, cryptoService.encrypt(password, "PASSWORD"));
+        return userRepository.findByEmailAndPassword(email, cryptoService.encrypt(password, CryptoService.PASSWORD_KEY));
     }
 
     @Override
     public User signUp(String email, String name, String password) {
-        if (userRepository.findByEmail(email) != null) {
-            throw new UserAlreadyExistException(email);
-        }
-        return userRepository.save(email, name, cryptoService.encrypt(password, "PASSWORD"));
+        return userRepository.save(email, name, cryptoService.encrypt(password, CryptoService.PASSWORD_KEY));
     }
 
     @Override
     public User findById(String userId) {
-        return userRepository.findById(Integer.valueOf(cryptoService.decrypt(userId, "USER_ID")));
+        return userRepository.findById(Integer.valueOf(cryptoService.decrypt(userId, CryptoService.USER_ID)));
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

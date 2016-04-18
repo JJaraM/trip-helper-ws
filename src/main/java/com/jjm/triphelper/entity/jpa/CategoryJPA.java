@@ -60,6 +60,4 @@ public class CategoryJPA implements Category {
     public void setReferenceId(String referenceId) {
         this.referenceId = referenceId;
     }
-
-
 }

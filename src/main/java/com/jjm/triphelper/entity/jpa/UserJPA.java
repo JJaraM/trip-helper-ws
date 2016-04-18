@@ -1,22 +1,12 @@
-/*
- * Copyright (c) 2016, 2020, JJM and/or its affiliates. All rights reserved.
- * JJM PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 package com.jjm.triphelper.entity.jpa;
 
-import com.jjm.chameleon.annotation.ChameleonAttr;
-import com.jjm.chameleon.annotation.jpa.ChameleonStrategy;
-import com.jjm.triphelper.entity.spec.Photo;
+import com.jjm.triphelper.entity.spec.Travel;
 import com.jjm.triphelper.entity.spec.Trip;
 import com.jjm.triphelper.entity.spec.User;
 import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-/**
- * The {@link UserJPA} represents the implementation of JPA to {@link User}
- * @author Jonathan Jara Morales
- * @since TRIP-1.0
- */
 @Entity
 @Table(name = "Uzer")
 public class UserJPA implements User {
@@ -111,5 +101,11 @@ public class UserJPA implements User {
     @Override
     public void setShareTrips(Set<Trip> shareTrips) {
         this.shareTrips = shareTrips;
+    }
+
+    @Override
+    public Set<Travel> getAllTravels() {
+        return getTrips().stream().map(Trip::getTravels)
+                .flatMap(travels -> travels.stream()).collect(Collectors.toSet());
     }
 }

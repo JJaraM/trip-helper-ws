@@ -29,7 +29,8 @@ public class TripJPA implements Trip {
     @OrderBy(value = "startDate DESC")
     private Set<Travel> travels;
 
-    @Column(name = "place_location", nullable = false, length = 100) private String placeLocation;
+    @ManyToOne(targetEntity = TripInfoJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_trip_info")
+    private TripInfo tripInfo;
 
     @Override
     public Integer getId() {
@@ -94,16 +95,6 @@ public class TripJPA implements Trip {
     }
 
     @Override
-    public String getPlaceLocation() {
-        return placeLocation;
-    }
-
-    @Override
-    public void setPlaceLocation(String placeLocation) {
-        this.placeLocation = placeLocation;
-    }
-
-    @Override
     public Set<Travel> getTravels() {
         return travels;
     }
@@ -113,6 +104,14 @@ public class TripJPA implements Trip {
         this.travels = travels;
     }
 
+    @Override
+    public TripInfo getTripInfo() {
+        return tripInfo;
+    }
 
+    @Override
+    public void setTripInfo(TripInfo tripInfo) {
+        this.tripInfo = tripInfo;
+    }
 
 }

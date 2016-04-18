@@ -3,7 +3,6 @@ package com.jjm.triphelper.entity.spec;
 import java.util.Set;
 
 public interface Country extends SingularId {
-
     String getName();
     void setName(String name);
 

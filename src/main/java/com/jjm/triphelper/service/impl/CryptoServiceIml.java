@@ -17,44 +17,44 @@ import org.springframework.stereotype.Service;
 @Service
 public class CryptoServiceIml implements CryptoService {
 
-    public static final String PASSWORD_HASH_ALGORITHM = "SHA-256";
+    private static final String PASSWORD_HASH_ALGORITHM = "SHA-256";
+    private static final String CIPHER_MODE = "AES";
+    private static final String CHARSET = "UTF-8";
 
     @Override
     public String encrypt(String plainText, String key) {
+        String encryptText = "";
         try {
             Key aesKeySpec = buildKey(key.toCharArray());
-            Cipher cipher = Cipher.getInstance("AES");
+            Cipher cipher = Cipher.getInstance(CIPHER_MODE);
             cipher.init(Cipher.ENCRYPT_MODE, aesKeySpec);
-            byte[] encryptedTextBytes = cipher.doFinal(plainText.getBytes("UTF-8"));
-            return new Base64().encodeToString(encryptedTextBytes);
-        } catch (NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException
-                | UnsupportedEncodingException | NoSuchPaddingException e) {
+            byte[] encryptedTextBytes = cipher.doFinal(plainText.getBytes(CHARSET));
+            encryptText = new Base64().encodeToString(encryptedTextBytes);
+        } catch (NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
-        return "";
+        return encryptText;
     }
 
     @Override
     public String decrypt(String encryptedText, String key) {
+        String decryptText = "";
         try {
             Key aesKeySpec = buildKey(key.toCharArray());
-            Cipher cipher = Cipher.getInstance("AES");
+            Cipher cipher = Cipher.getInstance(CIPHER_MODE);
             cipher.init(Cipher.DECRYPT_MODE, aesKeySpec);
             byte[] encryptedTextBytes = Base64.decodeBase64(encryptedText);
             byte[] decryptedTextBytes = cipher.doFinal(encryptedTextBytes);
-            return new String(decryptedTextBytes);
-        } catch (NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException
-                | UnsupportedEncodingException | NoSuchPaddingException e) {
+            decryptText = new String(decryptedTextBytes);
+        } catch (NoSuchAlgorithmException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
-        return "";
+        return decryptText;
     }
 
     private Key buildKey(final char[] password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest digester = MessageDigest.getInstance(PASSWORD_HASH_ALGORITHM);
-        digester.update(String.valueOf(password).getBytes("UTF-8"));
-        byte[] key = digester.digest();
-        SecretKeySpec spec = new SecretKeySpec(key, "AES");
-        return spec;
+        digester.update(String.valueOf(password).getBytes(CHARSET));
+        return new SecretKeySpec(digester.digest(), CIPHER_MODE);
     }
 }

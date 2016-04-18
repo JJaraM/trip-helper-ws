@@ -1,8 +1,5 @@
 package com.jjm.triphelper.entity.jpa;
 
-import com.jjm.chameleon.annotation.Chameleon;
-import com.jjm.chameleon.annotation.ChameleonAttr;
-import com.jjm.foursquare.entity.Location;
 import com.jjm.triphelper.entity.spec.City;
 import com.jjm.triphelper.entity.spec.Country;
 import javax.persistence.*;
@@ -10,7 +7,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Country")
-@Chameleon(type = Location.class)
 public class CountryJPA implements Country {
 
     @Id
@@ -22,8 +18,8 @@ public class CountryJPA implements Country {
     @OneToMany(mappedBy = "country", targetEntity = CityJPA.class)
     private Set<City> cities;
 
-    @ChameleonAttr(as = "country") @Column(name = "name", nullable = false) private String name;
-    @ChameleonAttr(as = "cc") @Column(name = "code", nullable = false) private String code;
+    @Column(name = "name", nullable = false) private String name;
+    @Column(name = "code", nullable = false) private String code;
 
     @Override
     public Integer getId() {

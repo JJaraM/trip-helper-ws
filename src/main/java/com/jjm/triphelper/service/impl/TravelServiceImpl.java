@@ -1,5 +1,7 @@
 package com.jjm.triphelper.service.impl;
 
+import com.jjm.triphelper.controller.exceptions.PlaceNotFoundException;
+import com.jjm.triphelper.controller.exceptions.TripNotFoundException;
 import com.jjm.triphelper.entity.spec.Place;
 import com.jjm.triphelper.entity.spec.Travel;
 import com.jjm.triphelper.entity.spec.Trip;
@@ -8,7 +10,10 @@ import com.jjm.triphelper.service.PlaceService;
 import com.jjm.triphelper.service.TravelService;
 import com.jjm.triphelper.service.TripService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
+import java.security.InvalidParameterException;
 import java.util.Date;
 
 @Service
@@ -19,9 +24,13 @@ public class TravelServiceImpl implements TravelService {
     @Resource private TravelRepository travelRepository;
 
     @Override
-    public Travel schedule(String tripId, String placeId, Date startDate, Date endDate) {
+    public Travel schedule(String tripId, String placeReferenceId, Date startDate, Date endDate) {
         Trip trip = tripService.findById(tripId);
-        Place place = placeService.findByReferenceId(placeId);
+        if (trip == null)
+            throw new TripNotFoundException(tripId);
+        Place place = placeService.findByReferenceId(placeReferenceId);
+        if (place == null)
+            throw new PlaceNotFoundException(placeReferenceId);
         return travelRepository.save(trip, place, startDate, endDate);
     }
 }

@@ -4,12 +4,9 @@
  */
 package com.jjm.triphelper.domain;
 
-/**
- * The {@link ErrorModel} class represents error model to return when there is an exception
- * @author Jonathan Jara Morales
- * @since TRIP-1.0
- */
 public class ErrorModel {
+
+    public ErrorModel() {}
 
     private String message;
 

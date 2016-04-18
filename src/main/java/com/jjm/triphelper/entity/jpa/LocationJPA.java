@@ -1,13 +1,10 @@
 package com.jjm.triphelper.entity.jpa;
 
-import com.jjm.chameleon.annotation.Chameleon;
-import com.jjm.chameleon.annotation.ChameleonAttr;
 import com.jjm.triphelper.entity.spec.Location;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Location")
-@Chameleon(type = com.jjm.foursquare.entity.Location.class)
 public class LocationJPA implements Location {
 
     @Id
@@ -16,8 +13,10 @@ public class LocationJPA implements Location {
     @SequenceGenerator(name = "location_seq", sequenceName = "location_seq")
     private Integer id;
 
-    @ChameleonAttr(as = "lat") @Column(name = "latitude", nullable = false) private Double latitude;
-    @ChameleonAttr(as = "lng") @Column(name = "longitude", nullable = false) private Double longitude;
+    @Column(name = "latitude", nullable = false) private Double latitude;
+    @Column(name = "longitude", nullable = false) private Double longitude;
+    @Column(name = "crossStreet") private String crossStreet;
+    @Column(name = "address") private String address;
 
     @Override
     public Integer getId() {
@@ -47,5 +46,25 @@ public class LocationJPA implements Location {
     @Override
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public String getAddress() {
+        return address;
+    }
+
+    @Override
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String getCrossStreet() {
+        return crossStreet;
+    }
+
+    @Override
+    public void setCrossStreet(String crossStreet) {
+        this.crossStreet = crossStreet;
     }
 }

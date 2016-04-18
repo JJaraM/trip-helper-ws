@@ -20,13 +20,10 @@ public interface Trip extends SingularId {
     User addFriend(User user);
     User removeFriend(User user);
 
-    String getPlaceLocation();
-    void setPlaceLocation(String placeLocation);
-
     Set<Travel> getTravels();
     void setTravels(Set<Travel> travels);
 
-
-
+    TripInfo getTripInfo();
+    void setTripInfo(TripInfo tripInfo);
 
 }

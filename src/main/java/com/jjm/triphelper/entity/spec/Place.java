@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Set;
 
 public interface Place extends SingularId,  ReferenceId, Expiration, Serializable {
-
     String getName();
     void setName(String name);
 
@@ -34,9 +33,4 @@ public interface Place extends SingularId,  ReferenceId, Expiration, Serializabl
 
     Category getCategory();
     void setCategory(Category category);
-
-
-
-
-
 }

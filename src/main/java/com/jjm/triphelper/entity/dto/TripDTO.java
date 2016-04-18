@@ -9,15 +9,16 @@ import java.util.Date;
 @Chameleon(type = TripJPA.class)
 public class TripDTO {
 
-    @Serializer(value = TripInterceptor.class) private String id;
+    @Serializer(value = TripInterceptor.class)
+    private String id;
+
     private Date startDate;
     private Date endDate;
-    private String placeLocation;
+    private TripInfoDTO tripInfo;
 
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -25,7 +26,6 @@ public class TripDTO {
     public Date getStartDate() {
         return startDate;
     }
-
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
@@ -33,17 +33,14 @@ public class TripDTO {
     public Date getEndDate() {
         return endDate;
     }
-
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-    public String getPlaceLocation() {
-        return placeLocation;
+    public TripInfoDTO getTripInfo() {
+        return tripInfo;
     }
-
-    public void setPlaceLocation(String placeLocation) {
-        this.placeLocation = placeLocation;
+    public void setTripInfo(TripInfoDTO tripInfo) {
+        this.tripInfo = tripInfo;
     }
-
 }

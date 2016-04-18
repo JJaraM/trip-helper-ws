@@ -3,7 +3,6 @@ package com.jjm.triphelper.factory;
 import com.jjm.foursquare.entity.Venue;
 import com.jjm.triphelper.entity.jpa.CountryJPA;
 import org.springframework.stereotype.Component;
-
 import java.util.HashSet;
 
 @Component

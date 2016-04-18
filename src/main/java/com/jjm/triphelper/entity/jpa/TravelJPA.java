@@ -16,15 +16,21 @@ public class TravelJPA implements Travel {
     @SequenceGenerator(name = "travel_seq", sequenceName = "travel_seq")
     private Integer id;
 
-    @ManyToOne(targetEntity = TripJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_travel")
+    @ManyToOne(targetEntity = TripJPA.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="id_travel")
     private Trip trip;
 
-    @ManyToOne(targetEntity = PlaceJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_place")
+    @ManyToOne(targetEntity = PlaceJPA.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="id_place")
     private Place place;
 
-    @Column(name="start_date", nullable = false) @Temporal(TemporalType.TIMESTAMP) private Date startDate;
-    @Column(name="end_date", nullable = false) @Temporal(TemporalType.TIMESTAMP) private Date endDate;
+    @Column(name="start_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
 
+    @Column(name="end_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
 
     @Override
     public Integer getId() {

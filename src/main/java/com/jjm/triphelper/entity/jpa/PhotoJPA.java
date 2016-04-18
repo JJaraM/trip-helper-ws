@@ -1,16 +1,11 @@
 package com.jjm.triphelper.entity.jpa;
 
-import com.jjm.chameleon.annotation.Chameleon;
-import com.jjm.chameleon.annotation.ChameleonAttr;
-import com.jjm.foursquare.entity.Venue;
 import com.jjm.triphelper.entity.spec.Photo;
 import com.jjm.triphelper.entity.spec.Place;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Photo")
-@Chameleon(type = com.jjm.foursquare.entity.Photo.class)
 public class PhotoJPA implements Photo {
 
     @Id
@@ -19,13 +14,14 @@ public class PhotoJPA implements Photo {
     @SequenceGenerator(name = "photo_seq", sequenceName = "photo_seq")
     private Integer id;
 
-    @ChameleonAttr @Column(name = "reference_id", nullable = false) private String referenceId;
-    @ChameleonAttr @Column(name = "prefix", nullable = true) private String prefix;
-    @ChameleonAttr @Column(name = "suffix", nullable = true) private String suffix;
-    @ChameleonAttr @Column(name = "width", nullable = true) private Double width;
-    @ChameleonAttr @Column(name = "height", nullable = true) private Double height;
+    @Column(name = "reference_id", nullable = false) private String referenceId;
+    @Column(name = "prefix", nullable = true) private String prefix;
+    @Column(name = "suffix", nullable = true) private String suffix;
+    @Column(name = "width", nullable = true) private Double width;
+    @Column(name = "height", nullable = true) private Double height;
 
-    @ManyToOne(targetEntity = PlaceJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_place") private Place place;
+    @ManyToOne(targetEntity = PlaceJPA.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="id_place") private Place place;
 
     @Override
     public Integer getId() {

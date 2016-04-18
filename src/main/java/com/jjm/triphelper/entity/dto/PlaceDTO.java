@@ -14,11 +14,11 @@ public class PlaceDTO {
     private LocationDTO location;
     private ContactDTO contact;
     private Set<PhotoDTO> photos;
+    private CategoryDTO category;
 
     public String getReferenceId() {
         return referenceId;
     }
-
     public void setReferenceId(String referenceId) {
         this.referenceId = referenceId;
     }
@@ -26,7 +26,6 @@ public class PlaceDTO {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -34,7 +33,6 @@ public class PlaceDTO {
     public String getUrl() {
         return url;
     }
-
     public void setUrl(String url) {
         this.url = url;
     }
@@ -42,7 +40,6 @@ public class PlaceDTO {
     public Double getRating() {
         return rating;
     }
-
     public void setRating(Double rating) {
         this.rating = rating;
     }
@@ -50,7 +47,6 @@ public class PlaceDTO {
     public LocationDTO getLocation() {
         return location;
     }
-
     public void setLocation(LocationDTO location) {
         this.location = location;
     }
@@ -58,7 +54,6 @@ public class PlaceDTO {
     public ContactDTO getContact() {
         return contact;
     }
-
     public void setContact(ContactDTO contact) {
         this.contact = contact;
     }
@@ -66,9 +61,14 @@ public class PlaceDTO {
     public Set<PhotoDTO> getPhotos() {
         return photos;
     }
-
     public void setPhotos(Set<PhotoDTO> photos) {
         this.photos = photos;
     }
 
+    public CategoryDTO getCategory() {
+        return category;
+    }
+    public void setCategory(CategoryDTO category) {
+        this.category = category;
+    }
 }

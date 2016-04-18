@@ -21,8 +21,6 @@ public class PlaceParser {
     @Resource private PhotoFactory photoFactory;
     @Resource private CategoryFactory categoryFactory;
 
-    //@Resource private CountryService countryService;
-
     public Set<Place> fetchNearPlacesByLocationNameFoursquare(Set<Venue> venues) {
         Set<Place> places = new HashSet<>();
         Map<String, Country> countryMap = new HashMap<>();
@@ -46,6 +44,7 @@ public class PlaceParser {
                 place.setContact(contactFactory.create(venue));
                 place.setLocation(locationFactory.create(venue));
                 place.setCategory(category);
+                place.setRating(venue.getRating());
                 places.add(place);
                 keys.add(venue.getReferenceId());
             }
