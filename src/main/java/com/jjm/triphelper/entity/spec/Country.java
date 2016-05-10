@@ -9,9 +9,10 @@ public interface Country extends SingularId {
     String code();
     void setCode(String code);
 
-    Set<City> getCities();
-    void setCities(Set<City> cities);
+    Set<State> getStates();
+    void setStates(Set<State> states);
 
-    City addCity(City city);
-    City removeCity(City city);
+    State addState(State state);
+    State removeState(State state);
+
 }

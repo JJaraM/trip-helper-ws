@@ -32,8 +32,8 @@ public class PlaceJPA implements Place {
     @OneToMany(mappedBy = "place", targetEntity = PhotoJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Photo> photos;
 
-    @ManyToOne(targetEntity = StateJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_state")
-    private State state;
+    @ManyToOne(targetEntity = CityJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_city")
+    private City city;
 
     @OneToOne(targetEntity = LocationJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="id_location", nullable = true)
@@ -138,13 +138,13 @@ public class PlaceJPA implements Place {
     }
 
     @Override
-    public State getState() {
-        return state;
+    public City getCity() {
+        return city;
     }
 
     @Override
-    public void setState(State state) {
-        this.state = state;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override

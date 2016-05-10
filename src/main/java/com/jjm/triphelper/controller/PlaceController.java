@@ -88,7 +88,7 @@ public class PlaceController {
         for (String category : categories) {
             Place place = placeService.findByLocationAndCategories(trip.getTripInfo().getPlaceLocation(), category);
             if (place != null)
-                places.add(placeService.findByLocationAndCategories(trip.getTripInfo().getPlaceLocation(), category));
+                places.add(place);
         }
         places = places.stream().filter(originalPlace ->
                 !trip.getTravels().stream().map(Travel::getPlace).collect(Collectors.toSet()).contains(originalPlace)

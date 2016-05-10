@@ -1,7 +1,7 @@
 package com.jjm.triphelper.entity.jpa;
 
-import com.jjm.triphelper.entity.spec.City;
 import com.jjm.triphelper.entity.spec.Country;
+import com.jjm.triphelper.entity.spec.State;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -15,8 +15,8 @@ public class CountryJPA implements Country {
     @SequenceGenerator(name = "place_seq", sequenceName = "place_seq")
     private Integer id;
 
-    @OneToMany(mappedBy = "country", targetEntity = CityJPA.class)
-    private Set<City> cities;
+    @OneToMany(mappedBy = "country", targetEntity = StateJPA.class)
+    private Set<State> states;
 
     @Column(name = "name", nullable = false) private String name;
     @Column(name = "code", nullable = false) private String code;
@@ -52,27 +52,28 @@ public class CountryJPA implements Country {
     }
 
     @Override
-    public Set<City> getCities() {
-        return cities;
+    public Set<State> getStates() {
+        return states;
     }
 
     @Override
-    public void setCities(Set<City> cities) {
-        this.cities = cities;
+    public void setStates(Set<State> states) {
+        this.states = states;
     }
 
     @Override
-    public City addCity(City city) {
-        getCities().add(city);
-        city.setCountry(this);
-        return city;
+    public State addState(State state) {
+        getStates().add(state);
+        state.setCountry(this);
+        return state;
     }
 
     @Override
-    public City removeCity(City city) {
-        getCities().remove(city);
-        city.setCountry(null);
-        return city;
+    public State removeState(State state) {
+        getStates().remove(state);
+        state.setCountry(null);
+        return state;
     }
+
 
 }

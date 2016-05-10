@@ -62,15 +62,15 @@ public class PlaceServiceJPA implements PlaceService {
     static class LocationFactory {
 
         public static String getCity(String locationName) {
-            return locationName.split(",")[0];
+            return locationName.split(",")[0].trim();
         }
 
         public static String getState(String locationName) {
-            return locationName.split(",")[1];
+            return locationName.split(",")[1].trim();
         }
 
         public static String getCountry(String locationName) {
-            return locationName.split(",")[1];
+            return locationName.split(",")[2].trim();
         }
 
     }

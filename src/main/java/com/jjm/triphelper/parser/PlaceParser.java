@@ -5,6 +5,9 @@ import com.jjm.foursquare.entity.Photo;
 import com.jjm.triphelper.entity.spec.*;
 import com.jjm.triphelper.entity.spec.Category;
 import com.jjm.triphelper.factory.*;
+import com.jjm.triphelper.repository.impl.CityRepositoryJPA;
+import com.jjm.triphelper.repository.impl.CountryRepositoryJPA;
+import com.jjm.triphelper.repository.impl.StateRepositoryJPA;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.*;
@@ -21,18 +24,34 @@ public class PlaceParser {
     @Resource private PhotoFactory photoFactory;
     @Resource private CategoryFactory categoryFactory;
 
+    @Resource private CountryRepositoryJPA countryRepository;
+    @Resource private StateRepositoryJPA stateRepository;
+    @Resource private CityRepositoryJPA cityRepository;
+
     public Set<Place> fetchNearPlacesByLocationNameFoursquare(Set<Venue> venues) {
         Set<Place> places = new HashSet<>();
-        Map<String, Country> countryMap = new HashMap<>();
-        Map<String, City> cityMap = new HashMap<>();
-        Map<String, State> stateMap = new HashMap<>();
         Map<String, Category> categoryMap = new HashMap<>();
         Set<String> keys = new HashSet<>();
         venues.forEach( venue -> {
             if (!keys.contains(venue.getReferenceId())) {
                 Place place = placeFactory.create(venue);
-                Country country = getCountry(countryMap, venue);
-                City city = getCity(cityMap, venue, country);
+                Country country = countryRepository.findByName(venue.getLocation().getCountry());
+                if (country == null)
+                    country = countryRepository.saveEntity(countryFactory.create(venue));
+                State state = stateRepository.findByStateNameAndCountryName(venue.getLocation().getState(), country.getName());
+                if (state == null) {
+                    state = stateFactory.create(venue);
+                    country.setStates(new HashSet<>());
+                    country.addState(state);
+                    state = stateRepository.saveEntity(state);
+                }
+                City city = cityRepository.findByCityNameAndStateNameAndCountryName(venue.getLocation().getCity(), state.getName(), country.getName());
+                if (city == null) {
+                    city = cityFactory.create(venue);
+                    state.setCities(new HashSet<>());
+                    state.addCity(city);
+                    city = cityRepository.saveEntity(city);
+                }
                 Category category = getCategory(categoryMap, venue);
                 Set<Photo> photos = venue.getPhotos();
                 if (photos != null) {
@@ -40,7 +59,7 @@ public class PlaceParser {
                         place.addPhoto(photoFactory.create(photo));
                     }
                 }
-                place.setState(getState(stateMap, venue, city));
+                place.setCity(city);
                 place.setContact(contactFactory.create(venue));
                 place.setLocation(locationFactory.create(venue));
                 place.setCategory(category);
@@ -50,35 +69,6 @@ public class PlaceParser {
             }
         });
         return places;
-    }
-
-    private City getCity(Map<String, City> cityMap, Venue venue, Country country) {
-        City city = cityMap.get(venue.getLocation().getCity());
-        if (city == null || !cityMap.containsKey(city.getName())) {
-            city = cityFactory.create(venue);
-            country.addCity(city);
-            cityMap.put(city.getName(), city);
-        }
-        return city;
-    }
-
-    private State getState(Map<String, State> stateMap, Venue venue, City city) {
-        State state = stateMap.get(venue.getLocation().getState());
-        if (state == null || !stateMap.containsKey(state.getName())) {
-            state = stateFactory.create(venue);
-            city.addState(state);
-            stateMap.put(state.getName(), state);
-        }
-        return state;
-    }
-
-    private Country getCountry(Map<String, Country> countryMap, Venue venue) {
-        Country country = countryMap.get(venue.getLocation().getCountry());
-        if (country == null || !countryMap.containsKey(country.getName())) {
-            country = countryFactory.create(venue);
-            countryMap.put(country.getName(), country);
-        }
-        return country;
     }
 
     private Category getCategory(Map<String, Category> categoryMap, Venue venue) {

@@ -1,6 +1,7 @@
 package com.jjm.triphelper.entity.jpa;
 
 import com.jjm.triphelper.entity.spec.City;
+import com.jjm.triphelper.entity.spec.Country;
 import com.jjm.triphelper.entity.spec.Place;
 import com.jjm.triphelper.entity.spec.State;
 import javax.persistence.*;
@@ -18,11 +19,12 @@ public class StateJPA implements State {
 
     @Column(name = "name", nullable = true) private String name;
 
-    @ManyToOne(targetEntity = CityJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_city")
-    private City city;
+    @OneToMany(mappedBy = "state", targetEntity = CityJPA.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<City> cities;
 
-    @OneToMany(mappedBy = "state", targetEntity = PlaceJPA.class)
-    private Set<Place> places;
+    @ManyToOne(targetEntity = CountryJPA.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="id_country")
+    private Country country;
 
     @Override
     public Integer getId() {
@@ -45,36 +47,38 @@ public class StateJPA implements State {
     }
 
     @Override
-    public City getCity() {
+    public Set<City> getCities() {
+        return cities;
+    }
+
+    @Override
+    public void setCities(Set<City> cities) {
+        this.cities = cities;
+    }
+
+    @Override
+    public Country getCountry() {
+        return country;
+    }
+
+    @Override
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    @Override
+    public City addCity(City city) {
+        getCities().add(city);
+        city.setState(this);
         return city;
     }
 
     @Override
-    public void setCity(City city) {
-        this.city = city;
+    public City removeCity(City city) {
+        getCities().remove(city);
+        city.setState(null);
+        return city;
     }
 
-    @Override
-    public Set<Place> getPlaces() {
-        return places;
-    }
 
-    @Override
-    public void setPlaces(Set<Place> places) {
-        this.places = places;
-    }
-
-    @Override
-    public Place addPlace(Place place) {
-        getPlaces().add(place);
-        place.setState(this);
-        return place;
-    }
-
-    @Override
-    public Place removePlace(Place place) {
-        getPlaces().remove(place);
-        place.setState(null);
-        return place;
-    }
 }

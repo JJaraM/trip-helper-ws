@@ -11,7 +11,6 @@ public class CityFactory {
     public CityJPA create(Venue venue) {
         CityJPA city = new CityJPA();
         city.setName(venue.getLocation().getCity());
-        city.setStates(new HashSet<>());
         return city;
     }
 }

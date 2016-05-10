@@ -13,9 +13,9 @@ import java.util.Set;
 public interface PlaceRepositoryJPA extends CacheRepository<PlaceJPA, Integer>, PlaceRepository {
 
     String FETCH_NEAR_BY_LOCATION = "SELECT p FROM PlaceJPA p " +
-            "JOIN p.state s " +
-            "JOIN s.city c " +
-            "JOIN c.country ct "+
+            "JOIN p.city c " +
+            "JOIN c.state s " +
+            "JOIN s.country ct "+
             "JOIN p.category ca " +
             "WHERE s.name LIKE %:state% " +
             "AND c.name LIKE %:city% " +

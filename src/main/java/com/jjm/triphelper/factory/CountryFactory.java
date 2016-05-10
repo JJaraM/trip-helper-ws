@@ -12,7 +12,7 @@ public class CountryFactory {
         CountryJPA country = new CountryJPA();
         country.setName(venue.getLocation().getCountry());
         country.setCode(venue.getLocation().getCc());
-        country.setCities(new HashSet<>());
+        country.setStates(new HashSet<>());
         return country;
     }
 }

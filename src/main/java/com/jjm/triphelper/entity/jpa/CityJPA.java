@@ -16,11 +16,9 @@ public class CityJPA implements City {
     @SequenceGenerator(name = "city_seq", sequenceName = "city_seq")
     private Integer id;
 
-    @OneToMany(mappedBy = "city", targetEntity = StateJPA.class)
-    private Set<State> states;
-
-    @ManyToOne(targetEntity = CountryJPA.class, cascade = CascadeType.ALL) @JoinColumn(name="id_country")
-    private Country country;
+    @ManyToOne(targetEntity = StateJPA.class, cascade = CascadeType.ALL)
+    @JoinColumn(name="id_state")
+    private State state;
 
     @Column(name = "name", nullable = true) private String name;
 
@@ -45,38 +43,16 @@ public class CityJPA implements City {
     }
 
     @Override
-    public Set<State> getStates() {
-        return states;
-    }
-
-    @Override
-    public void setStates(Set<State> states) {
-        this.states = states;
-    }
-
-    @Override
-    public State addState(State state) {
-        getStates().add(state);
-        state.setCity(this);
+    public State getState() {
         return state;
     }
 
     @Override
-    public State removeState(State state) {
-        getStates().remove(state);
-        state.setCity(null);
-        return state;
+    public void setState(State state) {
+        this.state = state;
     }
 
-    @Override
-    public Country getCountry() {
-        return country;
-    }
 
-    @Override
-    public void setCountry(Country country) {
-        this.country = country;
-    }
 
 
 }

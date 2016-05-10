@@ -29,7 +29,7 @@ public abstract class AbstractIntegrationTest {
 
     public AbstractIntegrationTest() {
         FoursquareApplication.getInstance().init("HWBMSYQA51QV0NH2I3F4GZRUWRBZAUGGFOM5PK1OXG2H1TB4", "4BAHTIQM4L22O5KOV3QN35XQ14PMF4PLRTRJXUBNN0SHFRR4");
-        ChameleonApplication.run(Application.class);
+        ChameleonApplication.getInstance().run(Application.class);
     }
 
     private String getBaseUrl() {

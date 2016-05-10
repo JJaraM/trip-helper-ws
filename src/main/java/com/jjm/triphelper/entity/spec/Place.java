@@ -25,8 +25,8 @@ public interface Place extends SingularId,  ReferenceId, Expiration, Serializabl
     Photo addPhoto(Photo photo);
     Photo removePhoto(Photo photo);
 
-    State getState();
-    void setState(State state);
+    City getCity();
+    void setCity(City city);
 
     Set<Travel> getTravels();
     void setTravels(Set<Travel> travels);

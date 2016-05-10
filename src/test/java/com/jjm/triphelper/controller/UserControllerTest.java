@@ -8,18 +8,15 @@ import com.jjm.triphelper.service.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerTest extends AbstractIntegrationTest {
 
     @Resource private UserController userController;

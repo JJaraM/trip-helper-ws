@@ -6,12 +6,12 @@ public interface State extends SingularId {
     String getName();
     void setName(String name);
 
-    City getCity();
-    void setCity(City city);
+    Set<City> getCities();
+    void setCities(Set<City> cities);
 
-    Set<Place> getPlaces();
-    void setPlaces(Set<Place> places);
+    Country getCountry();
+    void setCountry(Country country);
 
-    Place addPlace(Place place);
-    Place removePlace(Place place);
+    City addCity(City city);
+    City removeCity(City city);
 }
